@@ -5,6 +5,7 @@
 
 var variable = 0;     // first :: input variable
 var arr = [];         // after :: add variable to the array
+var dot = false;      //  ctrl :: count of dots in one variable
 var operator = "";    //   for :: add math operator to the array
 
 // ---------------------------------------------------------------------
@@ -33,8 +34,11 @@ function operation(target) {
 // ---------------------------------------------------------------------------------------
 
 function addValue(value) {
-    variable = Number(variable += "" + value);                  // :: add digit to variable
-    void std_cout(arr, variable);
+    if(dot === true) {                                                 // :: allow 0 after dot
+      variable += "" + value;
+    } else {
+      variable = Number(variable += "" + value);                  // :: add digit to variable
+    } void std_cout(arr, variable);
 }
 
 // ---------------------------------------------------------------------------------------
@@ -52,6 +56,7 @@ function addOperator(operator){
     arr.push (variable);                                              // :: add last variable to array
     arr.push (operator);                                              // :: then add operation sign
     variable = "";                                                    // :: reset variable
+    dot = false;                                                      // :: Reset for new variable
   }
 }
 
@@ -60,6 +65,10 @@ function addOperator(operator){
 // ---------------------------------------------------------------------
 
 function dots(){
+  if(dot === false) {
+    variable += ".";
+    dot = true;
+  }
 }
 
 // ---------------------------------------------------------------------
@@ -69,7 +78,8 @@ function dots(){
 function reset(){
   variable = 0;
   arr.length = 0;
-  console.log("[RESET ] -  variable [", variable, "] arr.length [", arr.length, "]");
+  dot = false;
+  console.log("[RESET ] -  variable [", variable, "] arr.length [", arr.length, "] dot [", dot, "]");
 }
 
 // ---------------------------------------------------------------------
